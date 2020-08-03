@@ -6,6 +6,7 @@ import java.util.Calendar;
 public class Transaction implements Serializable {
 
     public double amount = 0;
+    public String note = "";
     public Category category = null;
     public Calendar time = Calendar.getInstance();
 

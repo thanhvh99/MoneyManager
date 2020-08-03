@@ -17,7 +17,7 @@ import com.mobile.moneymanager.Utility.TransactionUtility;
 
 import java.util.ArrayList;
 
-public class TransactionAdapter extends RecyclerView.Adapter<ViewHolder> implements View.OnClickListener {
+public class TransactionsAdapter extends RecyclerView.Adapter<ViewHolder> implements View.OnClickListener {
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -57,7 +57,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<ViewHolder> impleme
         if (transaction.category == null) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
             headerHolder.amountTextView.setText(TransactionUtility.getAmountString(transaction));
-            headerHolder.dateTextView.setText(DateUtility.getSimpleDateString(transaction.time));
+            headerHolder.dateTextView.setText(DateUtility.dateToString(transaction.time, "dd/MM/yyyy"));
         } else {
             ItemHolder itemHolder = (ItemHolder) holder;
             itemHolder.amountTextView.setText(TransactionUtility.getAmountString(transaction));
@@ -94,7 +94,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<ViewHolder> impleme
         }
 
     }
-
 
     public static class HeaderHolder extends ViewHolder {
 

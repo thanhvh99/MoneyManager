@@ -91,20 +91,16 @@ public final class TransactionUtility {
     public static double calculateAmount(ArrayList<Transaction> transactions) {
         double result = 0;
         for (Transaction transaction : transactions) {
-            if (transaction.category.income) {
-                result += transaction.amount;
-            } else {
-                result -= transaction.amount;
-            }
+            result += transaction.amount;
         }
         return result;
     }
 
     public static String getAmountString(Transaction transaction) {
-        if (transaction.category == null) {
-            return (transaction.amount < 0 ? "" : "+") + transaction.amount;
+        if (transaction.amount == Math.round(transaction.amount)) {
+            return (transaction.amount <= 0 ? "" : "+") + ((long) transaction.amount);
         }
-        return (transaction.category.income ? "+" : "-") +  transaction.amount;
+        return (transaction.amount <= 0 ? "" : "+") + transaction.amount;
     }
 
 }
