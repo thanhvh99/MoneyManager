@@ -7,33 +7,22 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.mobile.moneymanager.Fragment.MonthlyTransactionsFragment;
-import com.mobile.moneymanager.Utility.DateUtility;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class TransactionsPagerAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<MonthlyTransactionsFragment> fragments = new ArrayList<>();
+    private ArrayList<MonthlyTransactionsFragment> fragments;
 
-    public TransactionsPagerAdapter(@NonNull FragmentManager fm) {
+    public TransactionsPagerAdapter(@NonNull FragmentManager fm, ArrayList<MonthlyTransactionsFragment> fragments) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        initialize();
-    }
-
-    private void initialize() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, -11);
-        for (int i = 0; i < 12; i++) {
-            fragments.add(new MonthlyTransactionsFragment(DateUtility.dateToString(calendar, "MM/yyyy")));
-            calendar.add(Calendar.MONTH, 1);
-        }
+        this.fragments = fragments;
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return null;
+        return fragments.get(position);
     }
 
     @Override
@@ -46,4 +35,5 @@ public class TransactionsPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return fragments.get(position).getTitle();
     }
+
 }

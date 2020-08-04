@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MoneyManager</string>
+    <string name="no_record_found">No record found</string>
 </resources>
