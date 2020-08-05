@@ -86,6 +86,20 @@ public final class MoneyManager extends Application {
         set.add(listener);
     }
 
+    public static void removeOnDataChangedListener(int hashMonth, OnDataChangedListener listener) {
+        HashSet<OnDataChangedListener> set = MoneyManager.listener.get(hashMonth);
+        if (set != null) {
+            set.remove(listener);
+        }
+    }
+
+    public static void removeOnDataChangedListener(OnDataChangedListener listener) {
+        HashSet<OnDataChangedListener> set = MoneyManager.listener.get(0);
+        if (set != null) {
+            set.remove(listener);
+        }
+    }
+
     public static void addTransaction(Transaction transaction) {
         int index = DateUtility.hashMonth(transaction.time);
         ArrayList<Transaction> transactions = data.get(index);
@@ -98,14 +112,12 @@ public final class MoneyManager extends Application {
         notifyListener(0);
     }
 
-    public static void deleteTransaction(Transaction transaction) {
+    public static void removeTransaction(Transaction transaction) {
         int index = DateUtility.hashMonth(transaction.time);
         ArrayList<Transaction> transactions = data.get(index);
-        if (transactions == null) {
-            transactions = new ArrayList<>();
-            data.put(index, transactions);
+        if (transactions != null) {
+            transactions.remove(transaction);
         }
-        transactions.add(transaction);
         notifyListener(index);
         notifyListener(0);
     }

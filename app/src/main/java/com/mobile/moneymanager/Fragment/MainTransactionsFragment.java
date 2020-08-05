@@ -19,32 +19,46 @@ import java.util.Calendar;
 
 public class MainTransactionsFragment extends Fragment {
 
+    private static final int NUMBER_OF_TAB = 20;
+
+    private int lastTabIndex = NUMBER_OF_TAB - 1;
+    private TabLayout tabLayout;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            lastTabIndex = savedInstanceState.getInt("LastTabIndex", NUMBER_OF_TAB - 1);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("LastTabIndex", tabLayout.getSelectedTabPosition());
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_transactions, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_main_transactions, container, false);
         ViewPager viewPager = view.findViewById(R.id.viewPager);
-        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+        tabLayout = view.findViewById(R.id.tabLayout);
 
-        assert getFragmentManager() != null;
-        TransactionsPagerAdapter adapter = new TransactionsPagerAdapter(getFragmentManager(), getFragments());
+        ArrayList<Calendar> calendars = new ArrayList<>();
+        for (int i = NUMBER_OF_TAB - 1; i >= 0; --i) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MONTH, -i);
+            calendars.add(calendar);
+        }
+
+        TransactionsPagerAdapter adapter = new TransactionsPagerAdapter(getChildFragmentManager(), calendars);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        return view;
-    }
+        viewPager.setCurrentItem(lastTabIndex, false);
 
-    private ArrayList<MonthlyTransactionsFragment> getFragments() {
-        ArrayList<MonthlyTransactionsFragment> fragments = new ArrayList<>();
-        for (int i = 11; i >= 0; --i) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.MONTH, -i);
-            MonthlyTransactionsFragment fragment = new MonthlyTransactionsFragment();
-            fragment.initialize(calendar);
-            fragments.add(fragment);
-        }
-        return fragments;
+        return view;
     }
 
 }

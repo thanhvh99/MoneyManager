@@ -11,6 +11,12 @@
         app:tabMode="scrollable"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/shadow"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
@@ -23,7 +29,7 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:background="@drawable/transactions_button_add"
-        android:layout_margin="16dp"
+        android:layout_margin="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -30,13 +30,23 @@ public class MonthlyTransactionsFragment extends Fragment implements OnDataChang
     private TextView noRecordTextView;
     private RecyclerView recyclerView;
 
-    public void initialize(Calendar calendar) {
-        this.calendar = calendar;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         MoneyManager.addOnDataChangedListener(DateUtility.hashMonth(calendar), this);
+        if (savedInstanceState != null) {
+            calendar = (Calendar) savedInstanceState.getSerializable("Calendar");
+        }
     }
 
-    public String getTitle() {
-        return DateUtility.dateToString(calendar, "MM/yyyy");
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("Calendar", calendar);
+    }
+
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
     }
 
     @Nullable
@@ -47,12 +57,18 @@ public class MonthlyTransactionsFragment extends Fragment implements OnDataChang
         noRecordTextView = view.findViewById(R.id.noRecordTextView);
 
         adapter = new TransactionsAdapter();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         updateContent();
 
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MoneyManager.removeOnDataChangedListener(this);
     }
 
     @Override

@@ -35,7 +35,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<ViewHolder> implem
             this.transactions.add(header);
             this.transactions.addAll(list);
         }
-        System.out.println(transactions.size());
     }
 
     @NonNull
