@@ -26,7 +26,7 @@ public class SplashScreen extends AppCompatActivity implements Animation.Animati
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                Intent i = new Intent(SplashScreen.this, CreateWallet.class);
                 startActivity(i);
                 finish();
             }
