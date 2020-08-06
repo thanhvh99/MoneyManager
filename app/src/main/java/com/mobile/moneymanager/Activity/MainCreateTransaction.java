@@ -2,56 +2,32 @@ package com.mobile.moneymanager.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.mobile.moneymanager.R;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
 
-
-public class CreateWallet extends AppCompatActivity {
-    private Button button;
-    private EditText inputNameWallet;
+public class MainCreateTransaction extends AppCompatActivity {
+    private EditText inputAmount;
+    private String current = "";
     private DecimalFormat df;
     private DecimalFormat dfnd;
     private boolean hasFractionalPart;
-    private EditText inputBalance;
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_wallet);
-        inputNameWallet= findViewById(R.id.input_name);
-        inputNameWallet.requestFocus();
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(inputNameWallet, InputMethodManager.SHOW_IMPLICIT);
-        inputBalance=findViewById(R.id.input_balance);
-
+        setContentView(R.layout.activity_main_create_transaction);
+        inputAmount=findViewById(R.id.input_amount);
         df = new DecimalFormat("#,###.##");
         df.setDecimalSeparatorAlwaysShown(true);
         dfnd = new DecimalFormat("#,###");
         hasFractionalPart = false;
-        button=findViewById(R.id.goon);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(CreateWallet.this, MainCreateTransaction.class);
-                startActivity(i);
-            }
-        });
-        inputBalance.addTextChangedListener(new TextWatcher() {
+        inputAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -69,27 +45,27 @@ public class CreateWallet extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                inputBalance.removeTextChangedListener(this);
+                inputAmount.removeTextChangedListener(this);
 
                 try {
                     int inilen, endlen;
-                    inilen = inputBalance.getText().length();
+                    inilen = inputAmount.getText().length();
 
                     String v = s.toString().replace(String.valueOf(df.getDecimalFormatSymbols().getGroupingSeparator()), "");
                     Number n = df.parse(v);
-                    int cp = inputBalance.getSelectionStart();
+                    int cp = inputAmount.getSelectionStart();
                     if (hasFractionalPart) {
-                        inputBalance.setText(df.format(n));
+                        inputAmount.setText(df.format(n));
                     } else {
-                        inputBalance.setText(dfnd.format(n));
+                        inputAmount.setText(dfnd.format(n));
                     }
-                    endlen = inputBalance.getText().length();
+                    endlen = inputAmount.getText().length();
                     int sel = (cp + (endlen - inilen));
-                    if (sel > 0 && sel <= inputBalance.getText().length()) {
-                        inputBalance.setSelection(sel);
+                    if (sel > 0 && sel <= inputAmount.getText().length()) {
+                        inputAmount.setSelection(sel);
                     } else {
                         // place cursor at the end?
-                        inputBalance.setSelection(inputBalance.getText().length() - 1);
+                        inputAmount.setSelection(inputAmount.getText().length() - 1);
                     }
                 } catch (NumberFormatException nfe) {
                     // do nothing?
@@ -97,7 +73,7 @@ public class CreateWallet extends AppCompatActivity {
                     // do nothing?
                 }
 
-                inputBalance.addTextChangedListener(this);
+                inputAmount.addTextChangedListener(this);
             }
         });
     }
