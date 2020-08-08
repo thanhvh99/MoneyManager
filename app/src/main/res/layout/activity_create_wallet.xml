@@ -17,11 +17,10 @@
         app:layout_constraintBottom_toTopOf="@id/nameWallet"
         app:layout_constraintStart_toStartOf="parent"
         />
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="24dp"
             android:layout_marginLeft="24px"
             android:layout_marginRight="24px"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,6 +37,7 @@
                 android:hint="Name"
                 />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
