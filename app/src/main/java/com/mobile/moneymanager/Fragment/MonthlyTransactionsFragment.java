@@ -33,9 +33,10 @@ public class MonthlyTransactionsFragment extends Fragment implements OnDataChang
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MoneyManager.addOnDataChangedListener(DateUtility.hashMonth(calendar), this);
         if (savedInstanceState != null) {
             calendar = (Calendar) savedInstanceState.getSerializable("Calendar");
+            assert calendar != null;
+            MoneyManager.addOnDataChangedListener(DateUtility.hashMonth(calendar), this);
         }
     }
 
@@ -47,6 +48,7 @@ public class MonthlyTransactionsFragment extends Fragment implements OnDataChang
 
     public void setCalendar(Calendar calendar) {
         this.calendar = calendar;
+        MoneyManager.addOnDataChangedListener(DateUtility.hashMonth(calendar), this);
     }
 
     @Nullable
