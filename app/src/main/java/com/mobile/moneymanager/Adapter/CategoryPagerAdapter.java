@@ -10,10 +10,8 @@ import com.mobile.moneymanager.Fragment.IncomeFragment;
 
 public class CategoryPagerAdapter extends FragmentPagerAdapter {
 
-    int numCase;
-    public CategoryPagerAdapter(FragmentManager fm,int numCase) {
+    public CategoryPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.numCase=numCase;
     }
 
     @NonNull
@@ -33,6 +31,19 @@ public class CategoryPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return numCase;
+        return 2;
+    }
+    @Override
+    public CharSequence getPageTitle(int position) {
+        String title = "";
+        switch (position){
+            case 0:
+                title = "Expense";
+                break;
+            case 1:
+                title = "Income";
+                break;
+        }
+        return title;
     }
 }

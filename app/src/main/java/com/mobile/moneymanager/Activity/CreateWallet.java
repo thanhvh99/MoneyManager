@@ -33,12 +33,11 @@ public class CreateWallet extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_wallet);
+        inputBalance=findViewById(R.id.input_balance);
         inputNameWallet= findViewById(R.id.input_name);
         inputNameWallet.requestFocus();
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(inputNameWallet, InputMethodManager.SHOW_IMPLICIT);
-        inputBalance=findViewById(R.id.input_balance);
-
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
         df = new DecimalFormat("#,###.##");
         df.setDecimalSeparatorAlwaysShown(true);
         dfnd = new DecimalFormat("#,###");

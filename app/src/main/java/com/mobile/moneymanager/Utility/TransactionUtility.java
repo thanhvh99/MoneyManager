@@ -91,7 +91,7 @@ public final class TransactionUtility {
     public static double calculateAmount(ArrayList<Transaction> transactions) {
         double result = 0;
         for (Transaction transaction : transactions) {
-            if (transaction.category.income) {
+            if (transaction.category.income==1) {
                 result += transaction.amount;
             } else {
                 result -= transaction.amount;
@@ -104,7 +104,7 @@ public final class TransactionUtility {
         if (transaction.category == null) {
             return (transaction.amount < 0 ? "" : "+") + transaction.amount;
         }
-        return (transaction.category.income ? "+" : "-") +  transaction.amount;
+        return (transaction.category.income==1 ? "+" : "-") +  transaction.amount;
     }
 
 }
