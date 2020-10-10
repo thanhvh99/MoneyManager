@@ -38,8 +38,10 @@ public class SplashScreen extends AppCompatActivity implements Animation.Animati
     }
     public void createDatabase(){
         databse=new DatabaseConect(this,"MoneyManager",null,1);
-        //databse.queryData("delete from Category");
+//        databse.queryData("delete from Wallet");
+//        databse.queryData("delete from Category");
         databse.queryData("CREATE TABLE IF NOT EXISTS  Category (id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(200),income INTEGER);");
+        databse.queryData("CREATE TABLE IF NOT EXISTS  Wallet (id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(200), balance INTEGER);");
         if(databse.tableEmpty("Category")){
             databse.queryData("INSERT INTO Category(id,name,income) VALUES(null,'Food & Beverage',0);");
             databse.queryData("INSERT INTO Category(id,name,income) VALUES(null,'Bills & Utilities',0);");
