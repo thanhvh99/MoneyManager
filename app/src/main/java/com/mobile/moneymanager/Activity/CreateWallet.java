@@ -18,10 +18,8 @@ import android.widget.EditText;
 import static android.content.ContentValues.TAG;
 import com.mobile.moneymanager.Database.DatabaseConect;
 import com.mobile.moneymanager.R;
-
 import java.text.DecimalFormat;
 import java.text.ParseException;
-
 
 public class CreateWallet extends AppCompatActivity {
     private Button button;

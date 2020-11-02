@@ -25,7 +25,7 @@ public class MainCreateTransaction extends AppCompatActivity {
     private EditText inputAmount;
     private EditText inputCategory;
     private EditText inputNote;
-    private EditText inputCash;
+    private EditText inputWallet;
     private String categoryResult = "";
     int LAUNCH_SECOND_ACTIVITY = 1;
     private DecimalFormat df;
@@ -38,7 +38,7 @@ public class MainCreateTransaction extends AppCompatActivity {
         inputAmount=findViewById(R.id.input_amount);
         inputCategory=findViewById(R.id.input_category);
         inputNote=findViewById(R.id.input_note);
-        inputCash=findViewById(R.id.input_cash);
+        inputWallet=findViewById(R.id.input_wallet);
         inputAmount.requestFocus();
         inputCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +46,16 @@ public class MainCreateTransaction extends AppCompatActivity {
                 Intent i = new Intent(MainCreateTransaction.this, SlectCategory.class);
                 i.putExtra("afterCategory",inputCategory.getText().toString());
                 startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(inputCategory.getWindowToken(), 0);
+            }
+        });
+        inputWallet.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainCreateTransaction.this, SelectWallet.class);
+                startActivity(i);
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(inputCategory.getWindowToken(), 0);
             }

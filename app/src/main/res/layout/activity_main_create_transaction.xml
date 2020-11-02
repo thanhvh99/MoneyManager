@@ -149,6 +149,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="horizontal"
+            android:clickable="true"
             android:id="@+id/layout_cash"
             >
             <ImageView
@@ -158,13 +159,14 @@
                 android:src="@drawable/cash"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp"
-                android:id="@+id/icon_cash"
+                android:id="@+id/icon_wallet"
                 />
             <EditText
-                android:id="@+id/input_cash"
+                android:id="@+id/input_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:focusableInTouchMode="false"
                 android:textSize="24sp"
                 android:inputType="text"
                 android:hint="Cash"
