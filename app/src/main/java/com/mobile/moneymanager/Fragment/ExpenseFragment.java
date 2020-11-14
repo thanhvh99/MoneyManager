@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,11 @@ import com.mobile.moneymanager.Database.DatabaseConect;
 import com.mobile.moneymanager.Model.Category;
 import com.mobile.moneymanager.R;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +62,7 @@ public class ExpenseFragment extends Fragment {
                 Category category = categoryList.get(position);
                 outCategory=category.getName();
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",outCategory);
+                returnIntent.putExtra("result", category);
                 getActivity().setResult(Activity.RESULT_OK,returnIntent);
                 getActivity().finish();
             }

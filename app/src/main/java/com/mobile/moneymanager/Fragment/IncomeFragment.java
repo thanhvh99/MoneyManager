@@ -34,12 +34,12 @@ public class IncomeFragment extends Fragment {
         listView=view.findViewById(R.id.list_income);
         incomeList=new ArrayList<>();
         DatabaseConect database= new DatabaseConect(getContext(),"MoneyManager",null,1);
-        Cursor dataExpense= database.getData("SELECT * FROM Category");
-        while (dataExpense.moveToNext()){
-            if(dataExpense.getInt(2)==1){
-                String nameIncome= dataExpense.getString(1);
-                int id = dataExpense.getInt(0);
-                incomeList.add(new Category(id,nameIncome,0));
+        Cursor dataIncome= database.getData("SELECT * FROM Category");
+        while (dataIncome.moveToNext()){
+            if(dataIncome.getInt(2)==1){
+                String nameCategory= dataIncome.getString(1);
+                int id = dataIncome.getInt(0);
+                incomeList.add(new Category(id,nameCategory,1));
             }
         }
         CategoryAdapter categoryAdapter= new CategoryAdapter(this.getContext(),R.layout.item_expense, incomeList);
@@ -50,7 +50,7 @@ public class IncomeFragment extends Fragment {
                 Category category = incomeList.get(position);
                 outCategory=category.getName();
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("result",outCategory);
+                returnIntent.putExtra("result",category);
                 getActivity().setResult(Activity.RESULT_OK,returnIntent);
                 getActivity().finish();
             }

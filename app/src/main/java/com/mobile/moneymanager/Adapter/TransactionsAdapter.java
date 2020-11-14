@@ -1,5 +1,6 @@
 package com.mobile.moneymanager.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import com.mobile.moneymanager.Utility.TransactionUtility;
 
 import java.util.ArrayList;
 
-public class TransactionAdapter extends RecyclerView.Adapter<ViewHolder> implements View.OnClickListener {
+public class TransactionsAdapter extends RecyclerView.Adapter<ViewHolder> implements View.OnClickListener {
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
@@ -29,7 +30,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<ViewHolder> impleme
         ArrayList<ArrayList<Transaction>> group = TransactionUtility.splitByDate(transactions);
         for (ArrayList<Transaction> list : group) {
             Transaction header = new Transaction();
-            header.category = null;
+            header.categoryName = null;
             header.amount = TransactionUtility.calculateAmount(list);
             header.time = list.get(0).time;
             this.transactions.add(header);
@@ -54,14 +55,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<ViewHolder> impleme
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Transaction transaction = transactions.get(position);
-        if (transaction.category == null) {
+        if (transaction.categoryName == null) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
             headerHolder.amountTextView.setText(TransactionUtility.getAmountString(transaction));
-            headerHolder.dateTextView.setText(DateUtility.getSimpleDateString(transaction.time));
+            headerHolder.dateTextView.setText(DateUtility.dateToString(transaction.time, "dd/MM/yyyy"));
         } else {
             ItemHolder itemHolder = (ItemHolder) holder;
             itemHolder.amountTextView.setText(TransactionUtility.getAmountString(transaction));
-            itemHolder.categoryTextView.setText(transaction.category.name);
+            itemHolder.categoryTextView.setText(transaction.categoryName);
         }
     }
 
@@ -72,14 +73,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<ViewHolder> impleme
 
     @Override
     public int getItemViewType(int position) {
-        return transactions.get(position).category == null ? TYPE_HEADER : TYPE_ITEM;
+        return transactions.get(position).categoryName == null ? TYPE_HEADER : TYPE_ITEM;
     }
 
     @Override
     public void onClick(View v) {
         RecyclerView recyclerView = (RecyclerView) v.getParent();
         Transaction transaction = transactions.get(recyclerView.getChildAdapterPosition(v));
-        Toast.makeText(v.getContext(), transaction.category.name, Toast.LENGTH_SHORT).show();
+        Toast.makeText(v.getContext(), transaction.categoryName, Toast.LENGTH_SHORT).show();
     }
 
     public static class ItemHolder extends ViewHolder {
@@ -94,7 +95,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<ViewHolder> impleme
         }
 
     }
-
 
     public static class HeaderHolder extends ViewHolder {
 

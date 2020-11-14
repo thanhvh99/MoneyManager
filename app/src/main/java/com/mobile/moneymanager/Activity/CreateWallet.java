@@ -54,9 +54,13 @@ public class CreateWallet extends AppCompatActivity {
                 values.put("name",nameWallet);
                 values.put("balance",balance);
                 db.insert("Wallet", null, values);
-                //databse.queryData("INSERT INTO Wallet(id,name,balance) VALUES(null,"+nameWallet+","+balance+");");
-                Intent i = new Intent(CreateWallet.this, MainCreateTransaction.class);
+                Intent i = new Intent(CreateWallet.this,  MainActivity.class);
                 startActivity(i);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(inputBalance.getWindowToken(), 0);
+                finish();
+                //databse.queryData("INSERT INTO Wallet(id,name,balance) VALUES(null,"+nameWallet+","+balance+");");
+
             }
         });
 //        inputBalance.addTextChangedListener(new TextWatcher() {

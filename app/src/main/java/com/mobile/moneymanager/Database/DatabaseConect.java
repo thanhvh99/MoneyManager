@@ -20,6 +20,10 @@ public class DatabaseConect extends SQLiteOpenHelper {
         SQLiteDatabase database= getReadableDatabase();
         return database.rawQuery(sql,null);
     }
+    public Cursor getDataJoin(String sql){
+        SQLiteDatabase database= getWritableDatabase();
+        return database.rawQuery(sql,null);
+    }
     public boolean tableEmpty(String table){
         SQLiteDatabase database= getWritableDatabase();
         String count = "SELECT count(*) FROM "+table;

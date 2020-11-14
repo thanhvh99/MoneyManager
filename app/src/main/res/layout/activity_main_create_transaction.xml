@@ -45,6 +45,7 @@
             android:textSize="14sp"
             android:layout_marginRight="24dp"
             android:textColor="#000"
+            android:id="@+id/save_tran"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

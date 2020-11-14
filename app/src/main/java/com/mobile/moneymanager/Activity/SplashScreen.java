@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.mobile.moneymanager.Database.DatabaseConect;
 import com.mobile.moneymanager.R;
+import static android.content.ContentValues.TAG;
 
 public class SplashScreen extends AppCompatActivity implements Animation.AnimationListener {
     private static int SPLASH_TIME_OUT = 3000;
@@ -22,7 +24,6 @@ public class SplashScreen extends AppCompatActivity implements Animation.Animati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createDatabase();
         setContentView(R.layout.activity_splash_screen);
         imageView= findViewById(R.id.logo);
         animation= AnimationUtils.loadAnimation(getApplicationContext(), R.anim.animation_splash);
@@ -31,10 +32,11 @@ public class SplashScreen extends AppCompatActivity implements Animation.Animati
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                createDatabase();
                 database=new DatabaseConect(SplashScreen.this,"MoneyManager",null,1);
                 Cursor dataExpense= database.getData("SELECT * FROM Wallet");
                 if(dataExpense.moveToNext()){
-                    Intent i = new Intent(SplashScreen.this,  MainCreateTransaction.class);
+                    Intent i = new Intent(SplashScreen.this,  MainActivity.class);
                     startActivity(i);
                     finish();
                 }
@@ -48,10 +50,10 @@ public class SplashScreen extends AppCompatActivity implements Animation.Animati
     }
     public void createDatabase(){
         database=new DatabaseConect(this,"MoneyManager",null,1);
-//        database.queryData("delete from Wallet");
-//        database.queryData("delete from Category");
         database.queryData("CREATE TABLE IF NOT EXISTS  Category (id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(200),income INTEGER);");
         database.queryData("CREATE TABLE IF NOT EXISTS  Wallet (id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(200), balance INTEGER);");
+        database.queryData("CREATE TABLE IF NOT EXISTS  Transac (id INTEGER PRIMARY KEY AUTOINCREMENT,amount INTEGER, note VARCHAR(200),time VARCHAR(200), walletId INTEGER, categoryId INTEGER);");
+        Log.d(TAG,"test ");
         if(database.tableEmpty("Category")){
             database.queryData("INSERT INTO Category(id,name,income) VALUES(null,'Food & Beverage',0);");
             database.queryData("INSERT INTO Category(id,name,income) VALUES(null,'Bills & Utilities',0);");

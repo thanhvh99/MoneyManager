@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="?attr/colorPrimary" />
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/ic_add_white"
+        android:top="@dimen/transactions_button_add_padding"
+        android:bottom="@dimen/transactions_button_add_padding"
+        android:left="@dimen/transactions_button_add_padding"
+        android:right="@dimen/transactions_button_add_padding" />
+
+</layer-list>

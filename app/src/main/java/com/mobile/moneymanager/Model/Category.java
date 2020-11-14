@@ -2,7 +2,7 @@ package com.mobile.moneymanager.Model;
 
 import java.io.Serializable;
 
-public class Category {
+public class Category implements Serializable{
 
     public String name = "";
     //public String image = "";
@@ -14,6 +14,7 @@ public class Category {
         this.income = income;
         this.id=id;
     }
+    public Category(){};
 
     public int getId() {
         return id;

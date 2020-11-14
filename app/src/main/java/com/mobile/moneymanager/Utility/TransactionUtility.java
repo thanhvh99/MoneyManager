@@ -42,7 +42,7 @@ public final class TransactionUtility {
         Collections.sort(transactions, new Comparator<Transaction>() {
             @Override
             public int compare(Transaction o1, Transaction o2) {
-                return o1.category.name.compareTo(o2.category.name);
+                return o1.categoryName.compareTo(o2.categoryName);
             }
         });
         ArrayList<ArrayList<Transaction>> result = new ArrayList<>();
@@ -53,7 +53,7 @@ public final class TransactionUtility {
             Transaction first = transactions.get(start);
             while (index < transactions.size()) {
                 Transaction second = transactions.get(index);
-                if (first.category.name.equals(second.category.name)) {
+                if (first.categoryName.equals(second.categoryName)) {
                     temp.add(second);
                     index++;
                 } else {
@@ -70,7 +70,7 @@ public final class TransactionUtility {
         ArrayList<Transaction> result = new ArrayList<>();
         for (Transaction transaction : transactions) {
             for (Category category : categories) {
-                if (transaction.category.name.equals(category.name)) {
+                if (transaction.categoryName.equals(category.name)) {
                     result.add(transaction);
                 }
             }
@@ -88,23 +88,27 @@ public final class TransactionUtility {
         return result;
     }
 
-    public static double calculateAmount(ArrayList<Transaction> transactions) {
-        double result = 0;
+    public static int calculateAmount(ArrayList<Transaction> transactions) {
+        int result = 0;
         for (Transaction transaction : transactions) {
-            if (transaction.category.income==1) {
-                result += transaction.amount;
-            } else {
+            if(transaction.income==0){
                 result -= transaction.amount;
+            }
+            else{
+                result += transaction.amount;
             }
         }
         return result;
     }
 
     public static String getAmountString(Transaction transaction) {
-        if (transaction.category == null) {
-            return (transaction.amount < 0 ? "" : "+") + transaction.amount;
+        if(transaction.categoryName == null){
+            return (transaction.amount<=0? " ":"+") + transaction.amount;
         }
-        return (transaction.category.income==1 ? "+" : "-") +  transaction.amount;
+        if (transaction.amount == Math.round(transaction.amount)) {
+            return (transaction.income == 0 ? "-" : "+") + ((long) transaction.amount);
+        }
+        return (transaction.income == 0 ? "-":"+") + transaction.amount;
     }
 
 }
